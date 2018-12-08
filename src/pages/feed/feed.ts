@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import moment, { duration } from 'moment';
 import { isDifferent } from '@angular/core/src/render3/util';
 import { LoginPage } from '../login/login';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class FeedPage {
   cursor: any;//documentSnapshot- holds value of pageSizeth post
   infiniteEvent: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController, 
+    public toastCtrl: ToastController, private camera: Camera) {
     this.getPosts();
   }
 
@@ -116,5 +118,27 @@ export class FeedPage {
     });
 
   }
+
+  addPhoto(){
+    this.launchCamera();
+  }
+
+launchCamera(){
+  let options: CameraOptions = {
+    quality: 100,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.PNG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true,
+    targetHeight: 512,
+    targetWidth: 512,
+    allowEdit: true
+  }
+  this.camera.getPicture(options).then((base64Image)=>{
+
+    console.log(base64Image)
+  }).catch((err)=>{console.log(err)})
+}
 
 }
