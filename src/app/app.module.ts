@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';//import in app.module.ts
 import { Geolocation } from '@ionic-native/geolocation';
+import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -34,6 +36,7 @@ timestampsInSnapshots: true
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -47,6 +50,7 @@ timestampsInSnapshots: true
     StatusBar,
     SplashScreen,
     Geolocation,
+    DeviceOrientation,
     Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
