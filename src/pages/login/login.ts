@@ -9,6 +9,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation';
 
+import Speech from 'speak-tts';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -58,6 +60,9 @@ export class LoginPage {
   this.navCtrl.push(SignUpPage)
 
   }
+
+
+  
 
   getConfig() {
     return this.http.get("https://places.cit.api.here.com/places/v1/discover/around?app_id=YkPk0Q157MjLyGLCgJOs&app_code=16i7bpHinNjTgRaRS1NJeg&in=22.375359,114.109852;r=70&pretty")
@@ -115,10 +120,28 @@ export class LoginPage {
       this.res = dataheremaps["results"].items[0].title;
       console.log('The closest place near you is ',this.res)
       })
+/////////////////// SPEECH
+  const speech = new Speech() // will throw an exception if not browser supported
     
 
+  speech.init()
+
+
+ if(this.res){
+   speech.speak({
+
+  text: "You are looking at" + this.res,
+}).then(() => {
+  console.log("Success !")
+}).catch(e => {
+  console.error("An error occurred :", e)
+})
+
+     }
 
      });
   }
+  
+
 
 }
