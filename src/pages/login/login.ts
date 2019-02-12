@@ -24,6 +24,7 @@ export class LoginPage {
   lat;
   long;
   totaldat;
+  speaking;
 
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController, private geolocation: Geolocation,
@@ -131,12 +132,13 @@ export class LoginPage {
 /////////////////// SPEECH
  if(this.res){
   this.tts.speak('You are looking at '+this.res)
-  .then(() => console.log('Success'))
+  .then(() => 
+  console.log("Voice Success")
+  )
   .catch((reason: any) => console.log(reason));
 
-     }
-     this.tts.stop();
-
+  }
+  this.tts.speak('')
      });
   }
 
