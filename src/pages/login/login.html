@@ -29,8 +29,67 @@
 			<p class="cardtitle">{{ res }}</p>
 
 			<p>{{ totaldat }}</p>
-			<p *ngIf="totaldat =='Restaurant'">{{ totaldat }}</p>
-			<p *ngIf="totaldat !='Educational Facility'">{{ totaldat }}</p>
+
+			<div *ngIf="totaldat =='Restaurant'">
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>	
+					
+					<p>Traditional American Burger Chain<br></p>
+					<p>Price Range: $$<br></p>
+					<p>Opening Hours: 7:00AM - 10:00PM<br></p>
+					<p>Comments<br></p>	
+				</div>
+			
+			<div *ngIf="totaldat =='Educational Facility'">
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>	
+					
+					<p><br><i>Traditional American Burger Chain</i><br></p>
+					<p><b>Price Range:</b> $$ <br></p>
+					<p><b>Opening Hours:</b> 7:00AM - 10:00PM<br></p>
+					<p class="commenttitle">Reviews:</p>
+					<ion-card padding >
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<p><br><i>"I loved the patty and bun combo here. Ambience could be improved though."</i></p>
+					</ion-card>
+					<ion-card padding >
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<p><br><i>"If you're hungry you're going to thrilled with their large helpings!"</i></p>
+					</ion-card>
+					<ion-card padding >
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<p><br><i>"Horrible service. I had to wait for over 25 minutes for my meal."</i></p>
+					</ion-card>
+
+
+			</div>
+
+			<div *ngIf="totaldat =='Shops'">
+					<p>Good for buying soap and cheap</p>
+			</div>
+
+			<div *ngIf="totaldat =='Building'">
+					<p>Warehouse</p>
+			</div>
+			
 			
 		</ion-card>
 

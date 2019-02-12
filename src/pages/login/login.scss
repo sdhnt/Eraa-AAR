@@ -32,6 +32,12 @@ ion-content{
 
 }
 
+
+.commenttitle{
+	font-family: Oswald;
+	font-size: 1.2em
+  }
+
 .item{
 	background-color: #ffffff
 }
@@ -61,5 +67,9 @@ h1,h6 {
 	margin-top: 13px;
 	margin-right: 10px;
 }
+.checked {
+	color: orange;
+  }	
+
 
 }
