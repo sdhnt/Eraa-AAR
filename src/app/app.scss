@@ -1,6 +1,9 @@
 // http://ionicframework.com/docs/theming/
 
-
+@import url(https://fonts.googleapis.com/css?family=Monoton);
+$font-family-base: "Monoton", cursive;
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+$font-family-base: "Oswald", sans-serif;
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

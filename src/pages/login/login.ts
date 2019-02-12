@@ -4,12 +4,10 @@ import { SignUpPage } from '../sign-up/sign-up'
 import firebase from 'firebase'
 import { FeedPage } from '../feed/feed';
 import { Geolocation } from '@ionic-native/geolocation';
-import { HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation';
-
-import Speech from 'speak-tts';
+import { HttpClient } from '@angular/common/http';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @Component({
   selector: 'page-login',
@@ -22,9 +20,14 @@ export class LoginPage {
 	email: string="";
   password: string="";
   res;
+  heading;
+  lat;
+  long;
+  totaldat;
 
 
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private geolocation: Geolocation, private deviceOrientation: DeviceOrientation, private http: HttpClient) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, private geolocation: Geolocation,
+     private deviceOrientation: DeviceOrientation, private http: HttpClient, private tts: TextToSpeech ) {
 
   }
 
@@ -64,33 +67,29 @@ export class LoginPage {
 
   
 
-  getConfig() {
-    return this.http.get("https://places.cit.api.here.com/places/v1/discover/around?app_id=YkPk0Q157MjLyGLCgJOs&app_code=16i7bpHinNjTgRaRS1NJeg&in=22.375359,114.109852;r=70&pretty")
-    .subscribe(data =>{
-      console.log("We got", data);
-    })
-
-  }
-
   getLocation(){
     //console.log("Entered Function")
     this.geolocation.getCurrentPosition().then((resp) => {
 
-      // console.log("Compass")
-      // this.deviceOrientation.getCurrentHeading().then(
-      //   (data: DeviceOrientationCompassHeading) => console.log(data),
-      //   (error: any) => console.log(error)
-      // );
+       console.log("Compass")
+       this.deviceOrientation.getCurrentHeading().then(
+         (data: DeviceOrientationCompassHeading) => console.log(data),
+          
+         (error: any) => console.log(error)
+       );
 
-      // var subscription = this.deviceOrientation.watchHeading().subscribe(
-      //   (data: DeviceOrientationCompassHeading) => console.log(data)
-      // );
+       var subscription = this.deviceOrientation.watchHeading().subscribe(
+         (data: DeviceOrientationCompassHeading) => this.heading=data.magneticHeading,
+         
+       );
+      
+       
 
-      this.toastCtrl.create({
+      // this.toastCtrl.create({
   
-        message: "Lat " + resp.coords.latitude + " Long " + resp.coords.longitude + " Head 118.1",
-        duration: 1000,
-      }).present();
+      //   message: "Lat " + resp.coords.latitude + " Long " + resp.coords.longitude + " " + this.heading,
+      //   duration: 1000,
+      // }).present();
 
       // console.log("GeoLoc1")
       // console.log(resp.coords.latitude) 
@@ -105,43 +104,41 @@ export class LoginPage {
        console.log('Error getting location', error);
      }, 
      );
-     
-     let watch = this.geolocation.watchPosition();
+     var options = {
+      enableHighAccuracy: true,
+      timeout: 500,
+      maximumAge: 0
+    };
+
+     let watch = this.geolocation.watchPosition(options);
      watch.subscribe((data) => {
       // data can be a set of coordinates, or an error (if an error occurred).
       console.log("GeoLoc2")
       console.log(data.coords.latitude) 
       console.log(data.coords.longitude) 
       console.log(data.coords.heading) 
+      //Lat and Long
+      this.lat=data.coords.latitude;
+      this.long=data.coords.longitude;
 
       this.http.get("https://places.cit.api.here.com/places/v1/discover/around?app_id=YkPk0Q157MjLyGLCgJOs&app_code=16i7bpHinNjTgRaRS1NJeg&in="+data.coords.latitude+","+data.coords.longitude+";r=70&pretty")
       .subscribe(dataheremaps =>{
       // console.log("We got", dataheremaps);
+      this.totaldat=dataheremaps["results"].items[0].category.title;
       this.res = dataheremaps["results"].items[0].title;
       console.log('The closest place near you is ',this.res)
       })
 /////////////////// SPEECH
-  const speech = new Speech() // will throw an exception if not browser supported
-    
-
-  speech.init()
-
-
  if(this.res){
-   speech.speak({
-
-  text: "You are looking at" + this.res,
-}).then(() => {
-  console.log("Success !")
-}).catch(e => {
-  console.error("An error occurred :", e)
-})
+  this.tts.speak('You are looking at '+this.res)
+  .then(() => console.log('Success'))
+  .catch((reason: any) => console.log(reason));
 
      }
+     this.tts.stop();
 
      });
   }
-  
 
 
 }

@@ -1,12 +1,41 @@
 <ion-header hidden>
   <ion-navbar color="danger">
     <ion-title>
-     AdMonkey
+     ERAA
     </ion-title>
   </ion-navbar>
 </ion-header>
 
+
+<ion-content>
+<div text-center>
+		<ion-row class="TopBar">
+			<ion-col>
+				<!-- TOP HEADING -->
+				<h3>eraa</h3>	
+			</ion-col>	
+		</ion-row>
+</div>
+
 <ion-content padding>
+
+		<ion-row class="calltoaction">
+				<button ion-button block outline color="black" style="margin-top:10px;" (click)="getLocation()">Nearby</button>
+		</ion-row>
+		<ion-row><p>
+		</p></ion-row>
+
+		<ion-card padding >
+			<p class="cardtitle">{{ res }}</p>
+
+			<p>{{ totaldat }}</p>
+			<p *ngIf="totaldat =='Restaurant'">{{ totaldat }}</p>
+			<p *ngIf="totaldat !='Educational Facility'">{{ totaldat }}</p>
+			
+		</ion-card>
+
+</ion-content>
+<!-- 	
 <ion-item text-center no-lines>
 	<ion-icon name="logo-rss" class="logo" color="light"></ion-icon>
 </ion-item>
@@ -20,7 +49,15 @@
 <ion-row> 
 	<button ion-button block outline color="black" style="margin-top:10px;font-size: 10px;" >Closest Location is: {{ res }}</button>
 </ion-row>
-
+<ion-row> 
+	<button ion-button block outline color="black" style="margin-top:10px;font-size: 10px;" >Latitute: {{ lat }}</button>
+</ion-row>
+<ion-row> 
+	<button ion-button block outline color="black" style="margin-top:10px;font-size: 10px;" >Longitude {{ long }}</button>
+</ion-row>
+<ion-row> 
+	<button ion-button block outline color="black" style="margin-top:10px;font-size: 10px;" >Compass: {{ heading }}</button>
+</ion-row> -->
 <!-- 
 <ion-grid style="width: 75%;">
 	<ion-row class="row-style">

@@ -7,6 +7,7 @@ import { Camera } from '@ionic-native/camera';//import in app.module.ts
 import { Geolocation } from '@ionic-native/geolocation';
 import { DeviceOrientation, DeviceOrientationCompassHeading } from '@ionic-native/device-orientation';
 import { HttpClientModule } from '@angular/common/http';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -52,7 +53,9 @@ timestampsInSnapshots: true
     Geolocation,
     DeviceOrientation,
     Camera,
+    TextToSpeech,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+    
   ]
 })
 export class AppModule {}
